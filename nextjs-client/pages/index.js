@@ -2,13 +2,12 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://localhost:4001";
 
 export default function Home() {
   const [response, setResponse] = useState("");
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
+    const socket = socketIOClient(process.env.NEXT_PUBLIC_SOCKETIO_ENDPOINT);
     socket.on("time", data => {
       setResponse(data)
     })
@@ -23,7 +22,7 @@ export default function Home() {
 
       <main>
 
-        <div>{response}</div>
+        <div>Server time: {response}</div>
 
       </main>
 
